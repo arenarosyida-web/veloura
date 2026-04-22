@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-
     public function index()
     {
-        $categories = Category::latest()->get();
+        // ✅ pakai pagination (bukan get)
+        $categories = Category::latest()->paginate(10);
+
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -28,7 +29,6 @@ class CategoryController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // upload image
         $imagePath = $request->file('image')->store('categories', 'public');
 
         Category::create([
@@ -55,10 +55,8 @@ class CategoryController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // jika upload image baru
         if ($request->hasFile('image')) {
 
-            // hapus image lama
             if ($category->image && Storage::disk('public')->exists($category->image)) {
                 Storage::disk('public')->delete($category->image);
             }
@@ -78,7 +76,6 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        // hapus image juga
         if ($category->image && Storage::disk('public')->exists($category->image)) {
             Storage::disk('public')->delete($category->image);
         }

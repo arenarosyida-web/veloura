@@ -132,7 +132,7 @@
         {{-- CTA --}}
         <div data-aos="fade-up" data-aos-delay="300"
              class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="https://wa.me/62882007694588"
+          <a href="https://wa.me/62882007694588?text=Halo,%20saya%20ingin%20memesan%20custom%20cake.%20Apakah%20bisa%20dibantu?"<a href="https://wa.me/62882007694588"
              target="_blank"
              rel="noopener noreferrer"
              class="inline-flex min-h-[44px] items-center gap-3 bg-emerald-800 px-7 py-3

@@ -175,10 +175,15 @@
     {{-- Error state --}}
     <div class="mt-6 border border-red-200 bg-red-50 px-5 py-4"
          data-aos="fade-up">
-      <div class="flex items-center gap-2">
-        <span class="h-1.5 w-1.5 rounded-full bg-red-400"></span>
-        <p class="text-[11px] font-light uppercase tracking-[2px] text-red-500">
-          Resi tidak ditemukan atau terjadi kesalahan.
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-red-400"></span>
+          <p class="text-[11px] font-light uppercase tracking-[2px] text-red-500">
+            Pelacakan Gagal
+          </p>
+        </div>
+        <p class="text-[12px] font-light leading-relaxed text-red-600/80 pl-3.5">
+          {{ $result['message'] ?? 'Resi tidak ditemukan atau terjadi kesalahan.' }}
         </p>
       </div>
     </div>

@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\CartItem;
 use App\Models\OrderItem;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Product extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'products';
 
     protected $primaryKey = 'product_id';
@@ -41,4 +45,12 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::class, 'product_id');
     }
+
+    // relasi ke stock movements (barang masuk/keluar)
+    public function stockMovements()
+    {
+        return $this->hasMany(\App\Models\StockMovement::class, 'product_id', 'product_id');
+    }
+
+
 }
