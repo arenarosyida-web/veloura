@@ -94,22 +94,20 @@
       </div>
     </div>
 
-    {{-- Categories --}}
-    <div class="adm-stat">
+    {{-- Total Revenue --}}
+    <div class="adm-stat" style="border-color:#C9960F; background:#FDFCF6;">
       <div>
-        <p class="text-[10px] font-medium uppercase tracking-[2px] text-brand-800 mb-1">
-          Categories
+        <p class="text-[10px] font-medium uppercase tracking-[2px] text-gold-600 mb-1">
+          Pendapatan
         </p>
-        <p class="font-cormorant text-3xl font-semibold text-brand-900">
-          {{ $totalCategories ?? 0 }}
+        <p class="font-cormorant text-2xl font-semibold text-brand-900">
+          Rp {{ number_format($totalRevenue ?? 0, 0, ',', '.') }}
         </p>
       </div>
-      <div class="adm-stat-icon">
+      <div class="adm-stat-icon" style="background:#FDF8E7; border-color:#E8C56B;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-             stroke="#4A2A18" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"/>
+             stroke="#C9960F" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
     </div>
@@ -133,21 +131,21 @@
       </div>
     </div>
 
-    {{-- Total Customers --}}
-    <div class="adm-stat">
+    {{-- Perlu Dikirim --}}
+    <div class="adm-stat cursor-pointer hover:opacity-90" style="border-color:#bfdbfe; background:#eff6ff;" onclick="window.location='{{ route('admin.orders.index') }}'">
       <div>
-        <p class="text-[10px] font-medium uppercase tracking-[2px] text-brand-800 mb-1">
-          Customers
+        <p class="text-[10px] font-medium uppercase tracking-[2px] text-blue-700 mb-1">
+          Perlu Dikirim
         </p>
-        <p class="font-cormorant text-3xl font-semibold text-brand-900">
-          {{ $totalCustomers ?? 0 }}
+        <p class="font-cormorant text-3xl font-semibold text-blue-800">
+          {{ $ordersToShip ?? 0 }}
         </p>
       </div>
-      <div class="adm-stat-icon">
+      <div class="adm-stat-icon" style="background:#dbeafe; border-color:#93c5fd;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-             stroke="#4A2A18" stroke-width="1.5">
+             stroke="#1d4ed8" stroke-width="1.5">
           <path stroke-linecap="round" stroke-linejoin="round"
-                d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
+                d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/>
         </svg>
       </div>
     </div>
@@ -212,15 +210,15 @@
 
 
   {{-- ═══════════════════════════════════════════════════════
-       PRODUK TERBARU (tanpa Aksi Cepat — sudah di sidebar)
+       PESANAN TERBARU
   ═══════════════════════════════════════════════════════ --}}
   <div class="adm-card">
 
     <div class="mb-4 flex items-center justify-between">
       <p class="text-[11px] font-medium uppercase tracking-[3px] text-brand-900">
-        Produk Terbaru
+        Pesanan Terbaru
       </p>
-      <a href="{{ route('products.index') }}"
+      <a href="{{ route('admin.orders.index') }}"
          class="text-[10px] font-medium uppercase tracking-[2px] text-gold-500
                 border-b border-gold-400 pb-0.5 transition-colors hover:text-gold-600">
         Lihat Semua
@@ -228,43 +226,43 @@
     </div>
 
     <div class="flex flex-col">
-      @forelse($recentProducts ?? [] as $product)
-      <div class="adm-tr flex items-center gap-3 py-3">
+      @forelse($recentOrders ?? [] as $order)
+      <div class="adm-tr flex items-center gap-3 py-3 px-2 cursor-pointer hover:bg-brand-50 transition-colors" onclick="window.location='{{ route('admin.orders.show', $order->order_id) }}'">
 
-        {{-- Thumbnail --}}
-        <div class="h-10 w-10 shrink-0 overflow-hidden border border-brand-200 bg-brand-50">
-          @if($product->image)
-            <img src="{{ asset('storage/'.$product->image) }}"
-                 class="h-full w-full object-cover" alt="{{ $product->name }}">
-          @else
-            <div class="flex h-full w-full items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                   stroke="#E0CDBD" stroke-width="1">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-              </svg>
-            </div>
-          @endif
+        <div class="h-10 w-10 shrink-0 border border-brand-200 bg-cream flex items-center justify-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A67D5D" stroke-width="1.5">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
         </div>
 
         <div class="min-w-0 flex-1">
           <p class="truncate text-[13px] font-medium text-brand-900">
-            {{ $product->name }}
+            Order #{{ $order->order_id }} - {{ $order->receiver_name }}
           </p>
           <p class="text-[12px] font-medium text-brand-700 mt-0.5">
-            Rp {{ number_format($product->price, 0, ',', '.') }}
+            Rp {{ number_format($order->total_price, 0, ',', '.') }}
           </p>
         </div>
 
-        <span class="shrink-0 text-[10px] font-semibold uppercase tracking-[1px]
-                     {{ $product->stock > 0 ? 'text-green-600' : 'text-red-600' }}">
-          {{ $product->stock > 0 ? 'Tersedia' : 'Habis' }}
+        @php
+            $badgeColor = match($order->status) {
+                'pending' => 'bg-yellow-50 text-yellow-700 border-yellow-200',
+                'paid' => 'bg-blue-50 text-blue-700 border-blue-200',
+                'shipped' => 'bg-purple-50 text-purple-700 border-purple-200',
+                'completed' => 'bg-green-50 text-green-700 border-green-200',
+                'canceled' => 'bg-red-50 text-red-700 border-red-200',
+                default => 'bg-gray-50 text-gray-700 border-gray-200',
+            };
+        @endphp
+
+        <span class="shrink-0 text-[10px] font-medium uppercase tracking-[1px] px-2 py-1 border {{ $badgeColor }}">
+          {{ $order->status }}
         </span>
 
       </div>
       @empty
       <p class="py-4 text-[11px] font-medium text-brand-600">
-        Belum ada produk.
+        Belum ada pesanan terbaru.
       </p>
       @endforelse
     </div>

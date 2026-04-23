@@ -2,7 +2,7 @@
 
 <div class="max-w-4xl font-jost space-y-5">
 
-  {{-- ── Header ── --}}
+  {{-- â”€â”€ Header â”€â”€ --}}
   <div data-aos="fade-down" data-aos-duration="400">
     <a href="{{ route('admin.orders.index') }}"
        class="mb-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase
@@ -39,7 +39,7 @@
   </div>
   @endif
 
-  {{-- ── Informasi Pelanggan ── --}}
+  {{-- â”€â”€ Informasi Pelanggan â”€â”€ --}}
   <div class="border border-brand-200 bg-cream p-6"
        data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
 
@@ -101,7 +101,7 @@
     </div>
   </div>
 
-  {{-- ── Order Items ── --}}
+  {{-- â”€â”€ Order Items â”€â”€ --}}
   <div class="overflow-hidden border border-brand-200 bg-cream"
        data-aos="fade-up" data-aos-duration="500" data-aos-delay="150">
 
@@ -109,30 +109,25 @@
       <p class="text-[10px] font-medium uppercase tracking-[4px] text-brand-600">Item Pesanan</p>
     </div>
 
-    {{-- Items header --}}
-    <div class="border-b border-brand-200 bg-brand-50/40">
+    <div class="w-full overflow-x-auto">
       <table class="w-full">
-        <thead>
+        <thead class="border-b border-brand-200 bg-brand-50/40">
           <tr>
             <th class="px-5 py-3 text-left text-[10px] font-medium uppercase tracking-[2px] text-brand-800" colspan="2">
               Produk
             </th>
-            <th class="hidden px-5 py-3 text-right text-[10px] font-medium uppercase tracking-[2px] text-brand-800 sm:table-cell">
+            <th class="hidden px-5 py-3 text-right text-[10px] font-medium uppercase tracking-[2px] text-brand-800 sm:table-cell w-32">
               Harga
             </th>
-            <th class="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-[2px] text-brand-800">
+            <th class="px-5 py-3 text-center text-[10px] font-medium uppercase tracking-[2px] text-brand-800 w-24">
               Qty
             </th>
-            <th class="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-[2px] text-brand-800">
+            <th class="px-5 py-3 text-right text-[10px] font-medium uppercase tracking-[2px] text-brand-800 w-32">
               Subtotal
             </th>
           </tr>
         </thead>
-      </table>
-    </div>
-
-    <table class="w-full">
-      <tbody>
+        <tbody>
         @foreach($order->items as $item)
         <tr class="border-b border-brand-100 last:border-0">
           {{-- Thumbnail --}}
@@ -163,7 +158,7 @@
             </span>
           </td>
           {{-- Qty --}}
-          <td class="px-5 py-4 text-right">
+          <td class="px-5 py-4 text-center">
             <span class="text-[12px] font-medium text-brand-800">
               {{ $item->quantity }}
             </span>
@@ -178,6 +173,7 @@
         @endforeach
       </tbody>
     </table>
+    </div>
 
     {{-- Total --}}
     <div class="flex items-center justify-between border-t border-brand-200 bg-brand-50/40 px-5 py-4">
@@ -194,7 +190,7 @@
 
   </div>
 
-  {{-- ── Update Status ── --}}
+  {{-- â”€â”€ Update Status â”€â”€ --}}
   @php
     $allowedTransitions = match($order->status) {
       'pending'   => ['canceled'],
@@ -278,7 +274,7 @@
 
 </div>
 
-{{-- ── Confirmation Modal ── --}}
+{{-- â”€â”€ Confirmation Modal â”€â”€ --}}
 <div id="confirm-modal"
      class="fixed inset-0 z-50 hidden items-center justify-center bg-brand-950/40 backdrop-blur-sm">
 
