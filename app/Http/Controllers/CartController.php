@@ -27,7 +27,7 @@ class CartController extends Controller
             ->where('cart_id', $cart->cart_id)
             ->get();
 
-        $total = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
+        $total = $cartItems->sum(fn($item) => $item->product ? $item->product->price * $item->quantity : 0);
 
         return view('cart.index', compact('cartItems', 'total'));
     }
@@ -55,7 +55,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->route('cart.index')->with('success', 'Added to cart!');
+        return redirect()->route('cart.index')->with('success', 'Produk berhasil ditambahkan ke keranjang!');
     }
 
     public function update(Request $request, $id)
@@ -65,12 +65,12 @@ class CartController extends Controller
         $item = CartItem::where('cart_item_id', $id)->firstOrFail();
         $item->update(['quantity' => $request->quantity]);
 
-        return back()->with('success', 'Cart updated.');
+        return back()->with('success', 'Keranjang berhasil diperbarui.');
     }
 
     public function remove($id)
     {
         CartItem::where('cart_item_id', $id)->firstOrFail()->delete();
-        return back()->with('success', 'Item removed.');
+        return back()->with('success', 'Item berhasil dihapus.');
     }
 }

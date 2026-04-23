@@ -28,28 +28,27 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'price'=>'required',
-            'stock'=>'required',
-            'image'=>'image|mimes:jpg,png,jpeg'
+            'name'  => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'image' => 'image|mimes:jpg,png,jpeg'
         ]);
 
         $image = null;
 
-        if($request->hasFile('image')){
-            $image = $request->file('image')->store('products','public');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('products', 'public');
         }
 
         $product = Product::create([
-            'category_id'=>$request->category_id,
-            'image'=>$image,
-            'name'=>$request->name,
-            'description'=>$request->description,
-            'price'=>$request->price,
-            'stock'=>$request->stock
+            'category_id' => $request->category_id,
+            'image'       => $image,
+            'name'        => $request->name,
+            'description' => $request->description,
+            'price'       => $request->price,
+            'stock'       => $request->stock
         ]);
 
-        // ── Otomatisasi Log Barang Masuk (Stok Awal) ──
         if ($request->stock > 0) {
             StockMovement::create([
                 'product_id'  => $product->product_id,
@@ -60,39 +59,38 @@ class ProductController extends Controller
         }
 
         return redirect()->route('products.index')
-            ->with('success','Product created');
+            ->with('success', 'Product created');
     }
 
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
+        $product    = Product::findOrFail($id);
         $categories = Category::all();
 
-        return view('admin.products.edit', compact('product','categories'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             Storage::disk('public')->delete($product->image);
 
-            $image = $request->file('image')->store('products','public');
+            $image         = $request->file('image')->store('products', 'public');
             $product->image = $image;
         }
 
         $oldStock = $product->stock;
 
         $product->update([
-            'category_id'=>$request->category_id,
-            'name'=>$request->name,
-            'description'=>$request->description,
-            'price'=>$request->price,
-            'stock'=>$request->stock
+            'category_id' => $request->category_id,
+            'name'        => $request->name,
+            'description' => $request->description,
+            'price'       => $request->price,
+            'stock'       => $request->stock
         ]);
 
-        // ── Otomatisasi Log Perubahan Stok ──
         $newStock = $request->stock;
         if ($newStock != $oldStock) {
             $difference = $newStock - $oldStock;
@@ -105,21 +103,20 @@ class ProductController extends Controller
         }
 
         return redirect()->route('products.index')
-        ->with('success','Product updated');
+            ->with('success', 'Product updated');
     }
 
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
 
-        Storage::disk('public')->delete($product->image);
-
+        // Tidak menghapus file gambar saat soft delete
+        // agar gambar tetap muncul di riwayat pesanan
         $product->delete();
 
-        return back()->with('success','Product deleted');
+        return back()->with('success', 'Product deleted');
     }
 
-    // ── Method Update Stok Cepat ──
     public function updateStock(Request $request, $product_id)
     {
         $request->validate([
@@ -136,14 +133,12 @@ class ProductController extends Controller
             return back()->with('error', "Stok gagal dikurangi. Stok saat ini ({$product->stock}) lebih kecil dari jumlah pengurangan ({$amount}).");
         }
 
-        // Update stok
         if ($type === 'in') {
             $product->increment('stock', $amount);
         } else {
             $product->decrement('stock', $amount);
         }
 
-        // Log riwayat
         StockMovement::create([
             'product_id'  => $product->product_id,
             'type'        => $type,

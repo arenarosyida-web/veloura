@@ -11,18 +11,6 @@ use App\Models\StockMovement;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-/**
- * Controller DashboardController
- *
- * Menampilkan halaman dashboard admin dengan:
- * - Statistik ringkasan (products, categories, orders, customers)
- * - Produk terbaru (5 item)
- * - Data grafik barang masuk & keluar per bulan (6 bulan terakhir)
- *
- * Perubahan dari revisi:
- * - Menghapus section "Aksi Cepat" (duplikat sidebar) → dashboard lebih efisien
- * - Menambahkan data grafik stock movements untuk Chart.js
- */
 class DashboardController extends Controller
 {
     public function index()
@@ -31,7 +19,15 @@ class DashboardController extends Controller
         $totalCategories = Category::count();
         $totalOrders     = class_exists(Order::class) ? Order::count() : 0;
         $totalCustomers  = User::where('role', 'customer')->count();
-        $recentProducts  = Product::with('category')->latest()->take(5)->get();
+        
+        // Revenue (paid, shipped, completed)
+        $totalRevenue    = class_exists(Order::class) ? Order::whereIn('status', ['paid', 'shipped', 'completed'])->sum('total_price') : 0;
+
+        // Pesanan Perlu Dikirim (status: paid)
+        $ordersToShip    = class_exists(Order::class) ? Order::where('status', 'paid')->count() : 0;
+
+        // Pesanan Terbaru (5 item)
+        $recentOrders    = class_exists(Order::class) ? Order::with('user')->orderByDesc('created_at')->take(5)->get() : collect();
 
         // ── Data Grafik Barang Masuk & Keluar (6 bulan terakhir) ──
         $months = collect();
@@ -75,7 +71,9 @@ class DashboardController extends Controller
             'totalCategories',
             'totalOrders',
             'totalCustomers',
-            'recentProducts',
+            'totalRevenue',
+            'ordersToShip',
+            'recentOrders',
             'chartLabels',
             'chartDataIn',
             'chartDataOut',

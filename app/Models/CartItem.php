@@ -20,13 +20,11 @@ class CartItem extends Model
         'quantity'
     ];
 
-    // relasi ke product
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id')->withTrashed();
     }
 
-    // relasi ke cart
     public function cart()
     {
         return $this->belongsTo(Cart::class, 'cart_id');
