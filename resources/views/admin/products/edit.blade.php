@@ -2,7 +2,7 @@
 
 <div class="max-w-2xl font-jost space-y-5">
 
-  {{-- ── Header ── --}}
+  {{-- â”€â”€ Header â”€â”€ --}}
   <div data-aos="fade-down" data-aos-duration="400">
     <a href="{{ route('products.index') }}"
        class="mb-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  {{-- ── Form card ── --}}
+  {{-- â”€â”€ Form card â”€â”€ --}}
   <div class="border border-brand-200 bg-cream p-6"
        data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
 
@@ -107,16 +107,14 @@
         Gambar Produk
       </label>
 
-      {{-- Preview gambar saat ini --}}
-      @if($product->image)
-      <div class="mb-2 h-16 w-16 overflow-hidden border border-brand-200">
-        <img src="{{ asset('storage/' . $product->image) }}"
+      {{-- Preview gambar --}}
+      <div id="imagePreviewContainer" class="{{ $product->image ? '' : 'hidden ' }}mb-2 h-20 w-20 overflow-hidden border border-brand-200">
+        <img id="imagePreview" src="{{ $product->image ? asset('storage/' . $product->image) : '' }}"
             class="h-full w-full object-cover" alt="{{ $product->name }}">
       </div>
-      @endif
 
-      <input type="file" name="image" accept="image/jpg,image/png,image/jpeg"
-            class="w-full border border-brand-200 bg-cream px-4 py-2.5 text-[13px] font-medium text-brand-800 transition-colors
+      <input type="file" name="image" accept="image/jpg,image/png,image/jpeg" id="imageInput" onchange="previewImage(event)"
+             class="w-full border border-brand-200 bg-cream px-4 py-2.5 text-[13px] font-medium text-brand-800 transition-colors
                     file:mr-3 file:border-0 file:bg-brand-800 file:px-3 file:py-1
                     file:text-[10px] file:font-light file:uppercase file:tracking-widest
                     file:text-gold-100 hover:file:bg-brand-900
@@ -153,3 +151,17 @@
 </div>
 
 </x-layouts.admin>
+
+<script>
+  function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+      const output = document.getElementById('imagePreview');
+      output.src = reader.result;
+      document.getElementById('imagePreviewContainer').classList.remove('hidden');
+    };
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+</script>

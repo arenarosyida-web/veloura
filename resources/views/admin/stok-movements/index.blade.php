@@ -81,12 +81,6 @@
     @empty
     <div class="border border-brand-200 bg-cream px-5 py-16 text-center">
       <p class="font-cormorant text-xl font-normal text-brand-800">Belum ada record</p>
-      <a href="{{ route('admin.stock-movements.create') }}"
-         class="mt-4 inline-flex items-center gap-2 border border-brand-400 px-5 py-2
-                text-[10px] font-medium uppercase tracking-[2px] text-brand-800
-                transition-colors hover:bg-brand-800 hover:text-gold-100">
-        Tambah Record
-      </a>
     </div>
     @endforelse
   </div>
@@ -161,12 +155,6 @@
         <tr>
           <td colspan="6" class="px-5 py-16 text-center">
             <p class="font-cormorant text-xl font-normal text-brand-800">Belum ada record</p>
-            <a href="{{ route('admin.stock-movements.create') }}"
-               class="mt-4 inline-flex items-center gap-2 border border-brand-400 px-5 py-2
-                      text-[10px] font-medium uppercase tracking-[2px] text-brand-800
-                      transition-colors hover:bg-brand-800 hover:text-gold-100">
-              Tambah Record
-            </a>
           </td>
         </tr>
         @endforelse

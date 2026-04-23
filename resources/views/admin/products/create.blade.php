@@ -2,7 +2,7 @@
 
 <div class="max-w-2xl font-jost space-y-5">
 
-  {{-- ── Header ── --}}
+  {{-- â”€â”€ Header â”€â”€ --}}
   <div data-aos="fade-down" data-aos-duration="400">
     <a href="{{ route('products.index') }}"
        class="mb-4 inline-flex items-center gap-2 text-[10px] font-medium uppercase
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  {{-- ── Form card ── --}}
+  {{-- â”€â”€ Form card â”€â”€ --}}
   <div class="border border-brand-200 bg-cream p-6"
        data-aos="fade-up" data-aos-duration="500" data-aos-delay="100">
 
@@ -105,7 +105,13 @@
       <label class="text-[11px] font-medium uppercase tracking-[2px] text-brand-900">
         Gambar Produk <span class="text-red-600 font-semibold">*</span>
       </label>
-      <input type="file" name="image" accept="image/jpg,image/png,image/jpeg"
+
+      {{-- Preview Container --}}
+      <div id="imagePreviewContainer" class="hidden mb-2 h-20 w-20 overflow-hidden border border-brand-200">
+        <img id="imagePreview" src="" class="h-full w-full object-cover" alt="Preview">
+      </div>
+
+      <input type="file" name="image" accept="image/jpg,image/png,image/jpeg" id="imageInput" onchange="previewImage(event)"
              class="w-full border border-brand-200 bg-cream px-4 py-2.5 text-[13px] font-medium text-brand-800 transition-colors
                     file:mr-3 file:border-0 file:bg-brand-800 file:px-3 file:py-1
                     file:text-[10px] file:font-light file:uppercase file:tracking-widest
@@ -143,3 +149,17 @@
 </div>
 
 </x-layouts.admin>
+
+<script>
+  function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+      const output = document.getElementById('imagePreview');
+      output.src = reader.result;
+      document.getElementById('imagePreviewContainer').classList.remove('hidden');
+    };
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+</script>

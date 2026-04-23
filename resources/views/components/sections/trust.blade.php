@@ -1,6 +1,6 @@
 @push('styles')
 <style>
-  /* ── Slider ── */
+  /* â”€â”€ Slider â”€â”€ */
   .tr-slider-wrap {
     overflow: hidden;
     position: relative;
@@ -20,28 +20,42 @@
   .tr-item { flex: 0 0 calc((100% - 40px) / 3); }
   @media (max-width: 767px) { .tr-item { flex: 0 0 100%; } }
 
-  /* ── Arrow (posisi & disabled state) ── */
+  /* â”€â”€ Arrow (posisi & disabled state) â”€â”€ */
   .tr-arrow {
     width: 44px; height: 44px;
-    border: 0.5px solid #A8D5B5;
+    border: 0.5px solid #C9960F;
     background: #FDFCFA;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: background .2s, border-color .2s;
+    cursor: pointer; flex-shrink: 0;
+    transition: all .3s ease;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(13, 43, 32, 0.1);
   }
-  .tr-arrow-left  { left: -22px; }
-  .tr-arrow-right { right: -22px; }
-  .tr-arrow:hover { background: #1A4A33; border-color: #1A4A33; }
-  .tr-arrow:hover svg { stroke: #E8C97A; }
-  .tr-arrow svg { stroke: #1A4A33; transition: stroke .2s; }
-  .tr-arrow:disabled { opacity: .3; pointer-events: none; }
+  .tr-arrow-left  { left: -22px; transform: translate(-10px, -50%); }
+  .tr-arrow-right { right: -22px; transform: translate(10px, -50%); }
+
+  .tr-slider-container:hover .tr-arrow-left { transform: translate(0, -50%); }
+  .tr-slider-container:hover .tr-arrow-right { transform: translate(0, -50%); }
+
+  .tr-slider-container:hover .tr-arrow:not(:disabled) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .tr-slider-container:hover .tr-arrow:disabled {
+    opacity: .3;
+    pointer-events: none;
+  }
+
+  .tr-arrow:hover { background: #C9960F; border-color: #C9960F; }
+  .tr-arrow:hover svg { stroke: #FDFCFA; }
+  .tr-arrow svg { stroke: #C9960F; transition: stroke .2s; }
   @media (max-width: 767px) { .tr-arrow { display: none; } }
 
-  /* ── Dots  ── */
+  /* â”€â”€ Dots  â”€â”€ */
   .tr-dot {
     height: 4px; border-radius: 2px;
     background: #A8D5B5;
@@ -51,7 +65,7 @@
   }
   .tr-dot.active { width: 20px; background: #C9960F; }
 
-  /* ── Card corner hover ── */
+  /* â”€â”€ Card corner hover â”€â”€ */
   .tr-card-corner-tl, .tr-card-corner-br {
     position: absolute;
     width: 12px; height: 12px;
@@ -66,29 +80,29 @@
 @endpush
 
 
-<section id="testimoni" class="relative overflow-hidden bg-cream pb-16 pt-24 font-jost">
+<section id="testimoni" class="relative overflow-hidden bg-cream py-16 font-jost md:py-24">
 
-  <div class="relative z-10 mx-auto max-w-7xl px-6">
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-    {{-- ── Header ── --}}
+    {{-- â”€â”€ Header â”€â”€ --}}
     <div class="mb-14 text-center">
 
       <div data-aos="fade-up" data-aos-delay="50"
-           class="mb-4 inline-flex items-center justify-center gap-3">
-        <div class="h-px w-8 bg-gold-500"></div>
-        <span class="text-[10px] font-light uppercase tracking-[4px] text-gold-500">Kata Mereka</span>
-        <div class="h-px w-8 bg-gold-500"></div>
+           class="mb-6 inline-flex items-center justify-center gap-4">
+        <div class="h-px w-12 bg-gold-500"></div>
+        <span class="text-xs font-light uppercase tracking-widest text-gold-500 md:text-sm">Kata Mereka</span>
+        <div class="h-px w-12 bg-gold-500"></div>
       </div>
 
       <h2 data-aos="fade-up" data-aos-delay="100"
-          class="font-cormorant text-4xl font-normal leading-tight text-emerald-900 md:text-5xl">
+          class="font-cormorant text-4xl font-normal leading-tight text-brand-900 md:text-5xl lg:text-6xl">
         Dipercaya Ribuan Pelanggan
       </h2>
 
     </div>
 
 
-    {{-- ── Slider ── --}}
+    {{-- â”€â”€ Slider â”€â”€ --}}
     @php
       $testimonials = [
         ['name' => 'Anindita R.',  'role' => 'Bride, Pernikahan 2024', 'initial' => 'A',
@@ -106,9 +120,9 @@
       ];
     @endphp
 
-    <div data-aos="fade-up" data-aos-delay="150">
+    <div data-aos="fade-up" data-aos-delay="150" class="tr-slider-container">
 
-      <div class="relative px-8">
+      <div class="relative">
 
         <button id="tr-prev" class="tr-arrow tr-arrow-left" aria-label="Sebelumnya" disabled>
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke-width="1.5">
@@ -128,37 +142,34 @@
             @foreach ($testimonials as $i => $t)
             <div class="tr-item">
 
-              {{-- Card — full Tailwind kecuali corner --}}
+              {{-- Card - full Tailwind kecuali corner --}}
               <div class="tr-card group relative flex h-full flex-col gap-4
                           border border-[#A8D5B5] bg-[#FDFCFA] p-6
                           transition-colors duration-200 hover:border-gold-400">
 
                 {{-- Quote mark --}}
-                <div class="select-none font-cormorant text-5xl font-light leading-none text-emerald-200"
+                <div class="select-none font-cormorant text-5xl font-light leading-none text-brand-200"
                      aria-hidden="true">&ldquo;</div>
 
                 {{-- Quote text --}}
-                <p class="flex-1 text-[13px] font-light leading-[1.85] text-emerald-800">
+                <p class="flex-1 text-sm font-light leading-relaxed text-brand-800 md:text-base">
                   {{ $t['quote'] }}
                 </p>
 
                 {{-- Divider --}}
-                <div class="flex items-center gap-2">
-                  <div class="h-px flex-1 bg-emerald-100"></div>
-                  <div class="h-1 w-1 rotate-45 bg-gold-400 opacity-50"></div>
-                </div>
+                <div class="my-4 border-t border-brand-100"></div>
 
                 {{-- Author --}}
-                <div class="flex items-center gap-3">
-                  <div class="flex h-9 w-9 shrink-0 items-center justify-center
-                              bg-emerald-800 text-[13px] font-medium text-gold-100">
+                <div class="flex items-center gap-4">
+                  <div class="flex h-10 w-10 shrink-0 items-center justify-center
+                              bg-brand-800 text-sm font-medium text-gold-100">
                     {{ $t['initial'] }}
                   </div>
                   <div>
-                    <p class="text-[12px] font-medium uppercase tracking-[2px] text-emerald-900">
+                    <p class="text-xs font-medium uppercase tracking-widest text-brand-900 md:text-sm">
                       {{ $t['name'] }}
                     </p>
-                    <p class="text-[10px] font-light text-emerald-600">
+                    <p class="text-xs font-light text-brand-600">
                       {{ $t['role'] }}
                     </p>
                   </div>
@@ -179,13 +190,13 @@
     </div>
 
 
-    {{-- ── Trust Badges ── --}}
+    {{-- â”€â”€ Trust Badges â”€â”€ --}}
     <div class="mt-16" data-aos="fade-up" data-aos-delay="100">
 
       <div class="mb-10 flex items-center gap-3">
-        <div class="h-px flex-1 bg-emerald-200"></div>
+        <div class="h-px flex-1 bg-brand-200"></div>
         <div class="h-1.5 w-1.5 rotate-45 bg-gold-400"></div>
-        <div class="h-px flex-1 bg-emerald-200"></div>
+        <div class="h-px flex-1 bg-brand-200"></div>
       </div>
 
       <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -201,11 +212,11 @@
            'Konsultasi Gratis', 'Tim kami siap membantu setiap saat'],
         ] as [$icon, $title, $desc])
 
-        <div class="group flex items-center gap-4 border border-emerald-200 bg-cream p-4
+        <div class="group flex items-center gap-4 border border-brand-200 bg-cream p-4
                     transition-colors duration-200 hover:border-gold-400">
           <div class="flex h-10 w-10 shrink-0 items-center justify-center
-                      border border-emerald-200 bg-emerald-50
-                      transition-colors duration-200 group-hover:border-emerald-800 group-hover:bg-emerald-800">
+                      border border-brand-200 bg-brand-50
+                      transition-colors duration-200 group-hover:border-brand-800 group-hover:bg-brand-800">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                  stroke="#1A4A33" stroke-width="1.5"
                  class="transition-all duration-200 group-hover:stroke-gold-400"
@@ -214,10 +225,10 @@
             </svg>
           </div>
           <div class="min-w-0">
-            <p class="text-[11px] font-medium uppercase tracking-[2px] text-emerald-900">
+            <p class="text-xs font-medium uppercase tracking-widest text-brand-900 md:text-sm">
               {{ $title }}
             </p>
-            <p class="mt-0.5 text-[11px] font-light leading-relaxed text-emerald-600">
+            <p class="mt-1 text-xs font-light leading-relaxed text-brand-600 md:text-sm">
               {{ $desc }}
             </p>
           </div>
@@ -318,8 +329,34 @@
     resizeTimer = setTimeout(function() { buildDots(); goTo(getCurrentPage() * getVisible(), false); }, 150);
   });
 
+  // Autoplay functionality
+  var autoplayTimer;
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(function() {
+      var maxSlide = Math.max(0, total - getVisible());
+      if (current >= maxSlide) {
+        goTo(0);
+      } else {
+        goToPage(getCurrentPage() + 1);
+      }
+    }, 4000); // 4 seconds delay
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+  }
+
+  if (wrap) {
+    wrap.addEventListener('mouseenter', stopAutoplay);
+    wrap.addEventListener('mouseleave', startAutoplay);
+    wrap.addEventListener('touchstart', stopAutoplay, { passive: true });
+    wrap.addEventListener('touchend', startAutoplay);
+  }
+
   buildDots();
   goTo(0);
+  startAutoplay();
 
 }());
 </script>

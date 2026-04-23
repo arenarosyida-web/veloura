@@ -3,8 +3,8 @@
 {{-- Full-page split layout --}}
 <div class="flex min-h-screen font-jost">
 
-  {{-- ── Left: decorative panel (hidden on mobile) ── --}}
-  <div class="hidden w-[45%] flex-col justify-between bg-emerald-900 p-12 lg:flex">
+  {{-- â”€â”€ Left: decorative panel (hidden on mobile) â”€â”€ --}}
+  <div class="hidden w-[45%] flex-col justify-between bg-brand-900 p-12 lg:flex">
 
     {{-- Logo --}}
     <a href="{{ route('home') }}" class="group inline-flex">
@@ -22,22 +22,22 @@
         <div class="h-px w-8 bg-gold-500 opacity-60"></div>
         <div class="h-1.5 w-1.5 rotate-45 bg-gold-500 opacity-60"></div>
       </div>
-      <blockquote class="font-cormorant text-2xl font-light italic leading-relaxed text-emerald-100">
+      <blockquote class="font-cormorant text-2xl font-light italic leading-relaxed text-brand-100">
         "Satu langkah lagi untuk<br>menikmati kue terbaik kami."
       </blockquote>
-      <p class="text-[10px] font-light uppercase tracking-[3px] text-emerald-500">
-        — Veloura Pâtisserie
+      <p class="text-xs font-light uppercase tracking-widest text-gold-500">
+        &mdash; Veloura P&acirc;tisserie
       </p>
     </div>
 
     {{-- Bottom copyright --}}
-    <p class="text-[10px] font-light uppercase tracking-[2px] text-emerald-700">
-      © {{ date('Y') }} Veloura. All rights reserved.
+    <p class="text-xs font-light uppercase tracking-widest text-brand-400">
+      &copy; {{ date('Y') }} Veloura. All rights reserved.
     </p>
 
   </div>
 
-  {{-- ── Right: Content panel ── --}}
+  {{-- â”€â”€ Right: Content panel â”€â”€ --}}
   <div class="flex flex-1 flex-col items-center justify-center bg-cream px-6 py-16 lg:px-16">
 
     {{-- Mobile logo --}}
@@ -59,19 +59,19 @@
       <div class="mb-8" data-aos="fade-up" data-aos-delay="50" data-aos-duration="550">
         <div class="mb-2 flex items-center gap-3">
           <div class="h-px w-6 bg-gold-500"></div>
-          <span class="text-[10px] font-light uppercase tracking-[4px] text-gold-500">Verifikasi</span>
+          <span class="text-xs font-light uppercase tracking-widest text-gold-500">Verifikasi</span>
         </div>
-        <h1 class="font-cormorant text-4xl font-normal text-emerald-900">Verifikasi Email</h1>
+        <h1 class="font-cormorant text-4xl md:text-5xl lg:text-6xl font-normal text-brand-900">Verifikasi Email</h1>
       </div>
 
       {{-- Description --}}
-      <p class="mb-6 text-[12px] font-light leading-relaxed text-emerald-700" data-aos="fade-up" data-aos-delay="100" data-aos-duration="550">
+      <p class="mb-6 text-xs font-light leading-relaxed text-brand-700" data-aos="fade-up" data-aos-delay="100" data-aos-duration="550">
         Terima kasih sudah mendaftar! Sebelum memulai, silakan verifikasi alamat email Anda dengan mengklik link yang baru saja kami kirimkan. Jika tidak menerima email, kami dengan senang hati akan mengirimkan yang baru.
       </p>
 
       {{-- Success message --}}
       @if (session('status') == 'verification-link-sent')
-        <div class="mb-6 border-[0.5px] border-emerald-200 bg-emerald-50 px-4 py-3 text-[12px] font-light text-emerald-800" data-aos="fade-up" data-aos-delay="150" data-aos-duration="550">
+        <div class="mb-6 border-[0.5px] border-brand-200 bg-brand-50 px-4 py-3 text-xs font-light text-brand-800" data-aos="fade-up" data-aos-delay="150" data-aos-duration="550">
           Link verifikasi baru telah dikirim ke alamat email yang Anda daftarkan.
         </div>
       @endif
@@ -84,8 +84,8 @@
           @csrf
           <button type="submit"
                   class="flex items-center justify-center gap-3
-                         bg-emerald-800 px-6 py-3.5 text-[11px] font-light uppercase
-                         tracking-[3px] text-gold-100 transition-colors hover:bg-emerald-900">
+                         bg-brand-800 px-6 py-3.5 text-xs font-light uppercase
+                         tracking-widest text-gold-100 transition-colors hover:bg-brand-900">
             Kirim Ulang
             <svg width="14" height="9" viewBox="0 0 14 9" fill="none" stroke="#E8C97A" stroke-width="1.5">
               <line x1="0" y1="4.5" x2="12" y2="4.5"/>
@@ -98,7 +98,7 @@
         <form method="POST" action="{{ route('logout') }}">
           @csrf
           <button type="submit"
-                  class="text-[10px] font-light uppercase tracking-[2px] text-emerald-500
+                  class="text-xs font-light uppercase tracking-widest text-brand-500
                          transition-colors hover:text-gold-500">
             Keluar
           </button>

@@ -1,6 +1,6 @@
 @push('styles')
 <style>
-  /* ── Slider ── */
+  /* â”€â”€ Slider â”€â”€ */
   .cat-slider-wrap {
     overflow: hidden;
     position: relative;
@@ -20,7 +20,7 @@
   .cat-slide-item { flex: 0 0 calc((100% - 40px) / 3); }
   @media (max-width: 767px) { .cat-slide-item { flex: 0 0 100%; } }
 
-  /* ── Dots ── */
+  /* â”€â”€ Dots â”€â”€ */
   .cat-dot {
     height: 4px; border-radius: 2px;
     background: #A8D5B5;
@@ -30,27 +30,42 @@
   }
   .cat-dot.active { width: 20px; background: #C9960F; }
 
-  /* ── Arrow (posisi & disabled state) ── */
+  /* â”€â”€ Arrow (posisi & disabled state) â”€â”€ */
   .cat-arrow {
     width: 44px; height: 44px;
-    border: 0.5px solid #A8D5B5;
+    border: 0.5px solid #C9960F;
     background: #FDFCFA;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; flex-shrink: 0;
-    transition: background .2s, border-color .2s;
+    transition: all .3s ease;
     position: absolute;
-    top: 50%; transform: translateY(-50%);
+    top: 50%;
     z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(13, 43, 32, 0.1);
   }
-  .cat-arrow-left  { left: -22px; }
-  .cat-arrow-right { right: -22px; }
-  .cat-arrow:hover { background: #1A4A33; border-color: #1A4A33; }
-  .cat-arrow:hover svg { stroke: #E8C97A; }
-  .cat-arrow svg { stroke: #1A4A33; transition: stroke .2s; }
-  .cat-arrow:disabled { opacity: .3; pointer-events: none; }
+  .cat-arrow-left  { left: -22px; transform: translate(-10px, -50%); }
+  .cat-arrow-right { right: -22px; transform: translate(10px, -50%); }
+
+  .cat-slider-container:hover .cat-arrow-left { transform: translate(0, -50%); }
+  .cat-slider-container:hover .cat-arrow-right { transform: translate(0, -50%); }
+
+  .cat-slider-container:hover .cat-arrow:not(:disabled) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .cat-slider-container:hover .cat-arrow:disabled {
+    opacity: .3;
+    pointer-events: none;
+  }
+
+  .cat-arrow:hover { background: #C9960F; border-color: #C9960F; }
+  .cat-arrow:hover svg { stroke: #FDFCFA; }
+  .cat-arrow svg { stroke: #C9960F; transition: stroke .2s; }
   @media (max-width: 767px) { .cat-arrow { display: none; } }
 
-  /* ── Card effects ── */
+  /* â”€â”€ Card effects â”€â”€ */
   .cat-card-img { transition: transform .7s ease; }
   .cat-card:hover .cat-card-img { transform: scale(1.06); }
 
@@ -76,22 +91,22 @@
 @endpush
 
 
-<section id="kategori" class="relative overflow-hidden bg-cream py-24 font-jost">
+<section id="kategori" class="relative overflow-hidden bg-cream py-16 font-jost md:py-24">
 
-  <div class="relative z-10 mx-auto max-w-7xl px-6">
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-    {{-- ── Header ── --}}
-    <div class="mb-12 text-center">
+    {{-- â”€â”€ Header â”€â”€ --}}
+    <div class="mb-10 text-center md:mb-12">
 
       <div data-aos="fade-up" data-aos-delay="50"
-           class="mb-4 inline-flex items-center justify-center gap-3">
-        <div class="h-px w-8 bg-gold-500"></div>
-        <span class="text-[10px] font-light uppercase tracking-[4px] text-gold-500">Jelajahi Berdasarkan</span>
-        <div class="h-px w-8 bg-gold-500"></div>
+           class="mb-6 inline-flex items-center justify-center gap-4">
+        <div class="h-px w-12 bg-gold-500"></div>
+        <span class="text-xs font-light uppercase tracking-widest text-gold-500 md:text-sm">Jelajahi Berdasarkan</span>
+        <div class="h-px w-12 bg-gold-500"></div>
       </div>
 
       <h2 data-aos="fade-up" data-aos-delay="100"
-          class="font-cormorant text-4xl font-normal leading-tight text-emerald-900 md:text-5xl">
+          class="font-cormorant text-4xl font-normal leading-tight text-brand-900 md:text-5xl lg:text-6xl">
         Kategori
       </h2>
 
@@ -102,10 +117,10 @@
       $totalCats = $cats->count();
     @endphp
 
-    {{-- ── Slider ── --}}
-    <div data-aos="fade-up" data-aos-delay="150">
+    {{-- â”€â”€ Slider â”€â”€ --}}
+    <div data-aos="fade-up" data-aos-delay="150" class="cat-slider-container">
 
-      <div class="relative px-8">
+      <div class="relative">
 
         {{-- Arrow kiri --}}
         <button id="cat-prev" class="cat-arrow cat-arrow-left" aria-label="Sebelumnya" disabled>
@@ -151,12 +166,12 @@
                 <div class="cat-card-body absolute bottom-0 left-0 right-0 z-10 p-5">
 
                   @if($cat->tagline ?? false)
-                    <p class="mb-1 text-[9px] font-light uppercase tracking-[3px] text-emerald-300">
+                    <p class="mb-2 text-xs font-light uppercase tracking-widest text-brand-300">
                       {{ $cat->tagline }}
                     </p>
                   @endif
 
-                  <p class="font-cormorant text-2xl font-normal leading-tight text-cream md:text-3xl">
+                  <p class="font-cormorant text-3xl font-normal leading-tight text-cream md:text-4xl">
                     {{ $cat->name }}
                   </p>
 
@@ -165,11 +180,11 @@
                     <div class="h-1 w-1 rotate-45 bg-gold-400 opacity-60"></div>
                   </div>
 
-                  <div class="cat-cta mt-2 inline-flex items-center gap-2">
-                    <span class="text-[9px] font-light uppercase tracking-[3px] text-gold-200">Lihat produk</span>
-                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="#E8C97A" stroke-width="1.5">
-                      <line x1="0" y1="4" x2="10" y2="4"/>
-                      <polyline points="7,1 10,4 7,7"/>
+                  <div class="cat-cta mt-4 inline-flex items-center gap-3">
+                    <span class="text-xs font-light uppercase tracking-widest text-gold-200">Lihat produk</span>
+                    <svg width="16" height="11" viewBox="0 0 14 9" fill="none" stroke="#E8C97A" stroke-width="1.5">
+                      <line x1="0" y1="4.5" x2="12" y2="4.5"/>
+                      <polyline points="8,1 12,4.5 8,8"/>
                     </svg>
                   </div>
 
@@ -188,16 +203,16 @@
 
     </div>
 
-    {{-- ── Lihat semua ── --}}
+    {{-- â”€â”€ Lihat semua â”€â”€ --}}
     <div data-aos="fade-up" data-aos-delay="100"
-         class="mt-10 flex justify-center">
+         class="mt-12 flex justify-center">
       <a href="{{ route('shop.index') }}"
-         class="inline-flex min-h-[44px] items-center gap-3 border border-emerald-400 px-8 py-3
-                text-[11px] font-normal uppercase tracking-[3px] text-emerald-800
+         class="inline-flex items-center gap-3 border border-brand-400 px-10 py-4
+                text-xs font-normal uppercase tracking-widest text-brand-800
                 transition-colors duration-200
-                hover:border-emerald-800 hover:bg-emerald-800 hover:text-gold-100">
+                hover:border-brand-800 hover:bg-brand-800 hover:text-gold-100 md:text-sm">
         Lihat Semua Koleksi
-        <svg width="14" height="9" viewBox="0 0 14 9" fill="none" stroke="currentColor" stroke-width="1.5">
+        <svg width="16" height="11" viewBox="0 0 14 9" fill="none" stroke="currentColor" stroke-width="1.5">
           <line x1="0" y1="4.5" x2="12" y2="4.5"/>
           <polyline points="8,1 12,4.5 8,8"/>
         </svg>
@@ -294,8 +309,34 @@
     resizeTimer = setTimeout(function() { buildDots(); goTo(getCurrentPage() * getVisible(), false); }, 150);
   });
 
+  // Autoplay functionality
+  var autoplayTimer;
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(function() {
+      var maxSlide = Math.max(0, total - getVisible());
+      if (current >= maxSlide) {
+        goTo(0);
+      } else {
+        goToPage(getCurrentPage() + 1);
+      }
+    }, 4000); // 4 seconds delay
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+  }
+
+  if (wrap) {
+    wrap.addEventListener('mouseenter', stopAutoplay);
+    wrap.addEventListener('mouseleave', startAutoplay);
+    wrap.addEventListener('touchstart', stopAutoplay, { passive: true });
+    wrap.addEventListener('touchend', startAutoplay);
+  }
+
   buildDots();
   goTo(0);
+  startAutoplay();
 
 }());
 </script>

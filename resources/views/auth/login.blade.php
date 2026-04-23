@@ -3,8 +3,8 @@
 {{-- Full-page split layout --}}
 <div class="flex min-h-screen font-jost">
 
-  {{-- ── Left: decorative panel (hidden on mobile) ── --}}
-  <div class="hidden w-[45%] flex-col justify-between bg-emerald-900 p-12 lg:flex">
+  {{-- â”€â”€ Left: decorative panel (hidden on mobile) â”€â”€ --}}
+  <div class="hidden w-[45%] flex-col justify-between bg-brand-900 p-12 lg:flex">
 
     {{-- Logo --}}
     <a href="{{ route('home') }}" class="group inline-flex">
@@ -22,22 +22,22 @@
         <div class="h-px w-8 bg-gold-500 opacity-60"></div>
         <div class="h-1.5 w-1.5 rotate-45 bg-gold-500 opacity-60"></div>
       </div>
-      <blockquote class="font-cormorant text-2xl font-light italic leading-relaxed text-emerald-100">
+      <blockquote class="font-cormorant text-2xl font-light italic leading-relaxed text-brand-100">
         "Setiap kue adalah sebuah cerita,<br>setiap gigitan adalah kenangan."
       </blockquote>
-      <p class="text-[10px] font-light uppercase tracking-[3px] text-emerald-500">
-        — Veloura Pâtisserie
+      <p class="text-xs font-light uppercase tracking-widest text-gold-500">
+        &mdash; Veloura P&acirc;tisserie
       </p>
     </div>
 
     {{-- Bottom copyright --}}
-    <p class="text-[10px] font-light uppercase tracking-[2px] text-emerald-700">
-      © {{ date('Y') }} Veloura. All rights reserved.
+    <p class="text-xs font-light uppercase tracking-widest text-brand-400">
+      &copy; {{ date('Y') }} Veloura. All rights reserved.
     </p>
 
   </div>
 
-  {{-- ── Right: Form panel ── --}}
+  {{-- â”€â”€ Right: Form panel â”€â”€ --}}
   <div class="flex flex-1 flex-col items-center justify-center bg-cream px-6 py-16 lg:px-16">
 
     {{-- Mobile logo --}}
@@ -58,8 +58,8 @@
     {{-- Back button --}}
       <div data-aos="fade-up" data-aos-delay="60" class="mb-6">
         <a href="{{ route('home') }}"
-           class="inline-flex items-center gap-2 text-[10px] font-light uppercase
-                  tracking-[3px] text-emerald-500 transition-colors hover:text-gold-500">
+           class="inline-flex items-center gap-2 text-xs font-light uppercase
+                  tracking-widest text-brand-500 transition-colors hover:text-gold-500">
           <svg width="14" height="9" viewBox="0 0 14 9" fill="none"
                stroke="currentColor" stroke-width="1.5">
             <line x1="14" y1="4.5" x2="2" y2="4.5"/>
@@ -73,9 +73,9 @@
       <div class="mb-8" data-aos="fade-up" data-aos-delay="50" data-aos-duration="550">
         <div class="mb-2 flex items-center gap-3">
           <div class="h-px w-6 bg-gold-500"></div>
-          <span class="text-[10px] font-light uppercase tracking-[4px] text-gold-500">Selamat Datang</span>
+          <span class="text-xs font-light uppercase tracking-widest text-gold-500">Selamat Datang</span>
         </div>
-        <h1 class="font-cormorant text-4xl font-normal text-emerald-900">Masuk</h1>
+        <h1 class="font-cormorant text-4xl md:text-5xl lg:text-6xl font-normal text-brand-900">Masuk</h1>
       </div>
 
       {{-- Session status --}}
@@ -87,29 +87,29 @@
         {{-- Email --}}
         <div class="flex flex-col gap-1.5" data-aos="fade-up" data-aos-delay="150" data-aos-duration="600">
           <label for="email"
-                 class="text-[10px] font-light uppercase tracking-[3px] text-emerald-700">
+                 class="text-xs font-light uppercase tracking-widest text-brand-700">
             Email <span class="text-red-400">*</span>
           </label>
           <input id="email" type="email" name="email"
                  value="{{ old('email') }}"
                  required autofocus autocomplete="username"
-                 class="w-full rounded-none border-[0.5px] border-[#A8D5B5] bg-[#FDFCFA] px-[14px] py-[11px] font-jost text-[13px] font-light text-[#0D2B20] shadow-none outline-none transition-colors duration-200 placeholder:text-[12px] placeholder:text-[#A8D5B5] focus:border-[#C9960F] focus:shadow-none focus:outline-none focus:ring-0 @error('email') border-red-400 @enderror">
+                 class="w-full rounded-none border-[0.5px] border-[#A8D5B5] bg-[#FDFCFA] px-[14px] py-[11px] font-jost text-sm font-light text-[#0D2B20] shadow-none outline-none transition-colors duration-200 placeholder:text-xs placeholder:text-[#A8D5B5] focus:border-[#C9960F] focus:shadow-none focus:outline-none focus:ring-0 @error('email') border-red-400 @enderror">
           @error('email')
-            <p class="text-[11px] font-light text-red-500">{{ $message }}</p>
+            <p class="text-xs font-light text-red-500">{{ $message }}</p>
           @enderror
         </div>
 
         {{-- Password --}}
         <div class="flex flex-col gap-1.5" data-aos="fade-up" data-aos-delay="250" data-aos-duration="600">
           <label for="password"
-                 class="text-[10px] font-light uppercase tracking-[3px] text-emerald-700">
+                 class="text-xs font-light uppercase tracking-widest text-brand-700">
             Password <span class="text-red-400">*</span>
           </label>
           <input id="password" type="password" name="password"
                  required autocomplete="current-password"
-                 class="w-full rounded-none border-[0.5px] border-[#A8D5B5] bg-[#FDFCFA] px-[14px] py-[11px] font-jost text-[13px] font-light text-[#0D2B20] shadow-none outline-none transition-colors duration-200 placeholder:text-[12px] placeholder:text-[#A8D5B5] focus:border-[#C9960F] focus:shadow-none focus:outline-none focus:ring-0 @error('password') border-red-400 @enderror">
+                 class="w-full rounded-none border-[0.5px] border-[#A8D5B5] bg-[#FDFCFA] px-[14px] py-[11px] font-jost text-sm font-light text-[#0D2B20] shadow-none outline-none transition-colors duration-200 placeholder:text-xs placeholder:text-[#A8D5B5] focus:border-[#C9960F] focus:shadow-none focus:outline-none focus:ring-0 @error('password') border-red-400 @enderror">
           @error('password')
-            <p class="text-[11px] font-light text-red-500">{{ $message }}</p>
+            <p class="text-xs font-light text-red-500">{{ $message }}</p>
           @enderror
         </div>
 
@@ -118,14 +118,14 @@
           <label class="flex items-center gap-2 cursor-pointer">
             <input id="remember_me" type="checkbox" name="remember"
                    class="h-[14px] w-[14px] cursor-pointer rounded-none border-[0.5px] border-[#A8D5B5] accent-[#1A4A33] shadow-none focus:ring-0">
-            <span class="text-[11px] font-light uppercase tracking-[2px] text-emerald-600">
+            <span class="text-xs font-light uppercase tracking-widest text-brand-600">
               Ingat Saya
             </span>
           </label>
 
           @if (Route::has('password.request'))
           <a href="{{ route('password.request') }}"
-             class="text-[10px] font-light uppercase tracking-[2px] text-emerald-500
+             class="text-xs font-light uppercase tracking-widest text-brand-500
                     transition-colors hover:text-gold-500">
             Lupa Password?
           </a>
@@ -136,8 +136,8 @@
         <button type="submit"
                 data-aos="fade-up" data-aos-delay="450" data-aos-duration="600"
                 class="mt-2 flex w-full items-center justify-center gap-3
-                       bg-emerald-800 py-3.5 text-[11px] font-light uppercase
-                       tracking-[3px] text-gold-100 transition-colors hover:bg-emerald-900">
+                       bg-brand-800 py-3.5 text-xs font-light uppercase
+                       tracking-widest text-gold-100 transition-colors hover:bg-brand-900">
           Masuk
           <svg width="14" height="9" viewBox="0 0 14 9" fill="none" stroke="#E8C97A" stroke-width="1.5">
             <line x1="0" y1="4.5" x2="12" y2="4.5"/>
@@ -148,10 +148,10 @@
       </form>
 
       {{-- Register link --}}
-      <p data-aos="fade-up" data-aos-delay="450" data-aos-duration="600" class="mt-6 text-center text-[11px] font-light text-emerald-600">
+      <p data-aos="fade-up" data-aos-delay="450" data-aos-duration="600" class="mt-6 text-center text-xs font-light text-brand-600">
         Belum punya akun?
         <a href="{{ route('register') }}"
-           class="font-light uppercase tracking-[2px] text-emerald-800
+           class="font-light uppercase tracking-widest text-brand-800
                   underline underline-offset-2 transition-colors hover:text-gold-500">
           Daftar
         </a>
